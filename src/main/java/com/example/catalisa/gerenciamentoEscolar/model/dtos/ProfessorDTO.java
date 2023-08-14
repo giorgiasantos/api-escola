@@ -20,6 +20,7 @@ public class ProfessorDTO implements Serializable {
     private CursoModel cursos;
     private Long cursosId;
 
+
     public ProfessorDTO(ProfessorModel professorModel) {
         this.id = professorModel.getId();
         this.nomeProfessor = professorModel.getNomeProfessor();
@@ -27,6 +28,7 @@ public class ProfessorDTO implements Serializable {
         this.salario = professorModel.getSalario();
         this.cursos = professorModel.getCursos();
         this.cursosId = professorModel.getCursosId();
+
     }
 
     public ProfessorDTO() {

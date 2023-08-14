@@ -1,7 +1,8 @@
 package com.example.catalisa.gerenciamentoEscolar.controller;
 
-import com.example.catalisa.gerenciamentoEscolar.model.ProfessorModel;
+
 import com.example.catalisa.gerenciamentoEscolar.model.dtos.ProfessorDTO;
+import com.example.catalisa.gerenciamentoEscolar.model.dtos.ProfessorDTOExibicao;
 import com.example.catalisa.gerenciamentoEscolar.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,22 +19,13 @@ public class ProfessorController {
 
     //ENDPOINTS
 
-    // REQUISIÇÃO GET
-//    @GetMapping
-//    public ResponseEntity<List<ProfessorModel>> listarProfessores(){
-//        return ResponseEntity.ok(professorService.exibirProfessores());
-//    }
+    //REQUISIÇÃO GET
     @GetMapping
-    public ResponseEntity<List<ProfessorDTO>> listarProfessores(){
+    public ResponseEntity<List<ProfessorDTOExibicao>> listarProfessores(){
         return ResponseEntity.ok(professorService.exibirProfessores());
     }
 
-    //REQUISIÇÃO POST
-//    @PostMapping
-//    public ResponseEntity<ProfessorModel> cadastrarProfessor(@RequestBody ProfessorModel professorModel){
-//        professorService.cadastrarProfessor(professorModel);
-//        return ResponseEntity.ok().body(professorModel);
-//    }
+    // REQUISIÇÃO POST
     @PostMapping
     public ResponseEntity<ProfessorDTO> cadastrarProfessor(@RequestBody ProfessorDTO professorDTO){
         professorService.cadastrarProfessor(professorDTO);

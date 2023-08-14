@@ -1,8 +1,8 @@
 package com.example.catalisa.gerenciamentoEscolar.controller;
 
-import com.example.catalisa.gerenciamentoEscolar.model.CursoModel;
 import com.example.catalisa.gerenciamentoEscolar.model.MatriculaModel;
 import com.example.catalisa.gerenciamentoEscolar.model.dtos.MatriculaDTO;
+import com.example.catalisa.gerenciamentoEscolar.model.dtos.MatriculaDTOExibicao;
 import com.example.catalisa.gerenciamentoEscolar.service.MatriculaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +26,7 @@ public class MatriculaController {
         MatriculaModel matriculaModel = matriculaService.editarMatricula(id,cursosId);
 
         if(matriculaModel != null){
-            return ResponseEntity.ok(matriculaModel);
+            return ResponseEntity.ok().body(matriculaModel);
         }else {
             return ResponseEntity.notFound().build();
         }
@@ -34,22 +34,12 @@ public class MatriculaController {
     }
 
     //REQUISIÇÃO GET
-//    @GetMapping
-//    public ResponseEntity<List<MatriculaModel>> listarMatriculas(){
-//        return ResponseEntity.ok(matriculaService.exibirMatriculas());
-//    }
-
     @GetMapping
-    public ResponseEntity<List<MatriculaDTO>> listarMatriculas(){
+    public ResponseEntity<List<MatriculaDTOExibicao>> listarMatriculas(){
         return ResponseEntity.ok(matriculaService.exibirMatriculas());
     }
 
     //REQUISIÇÃO POST
-//    @PostMapping
-//    public ResponseEntity<MatriculaModel> fazerNovaMatricula(@RequestBody MatriculaModel matriculaModel){
-//        matriculaService.fazerMatricula(matriculaModel);
-//        return ResponseEntity.ok().body(matriculaModel);
-//    }
     @PostMapping
     public ResponseEntity<MatriculaDTO> fazerNovaMatricula(@RequestBody MatriculaDTO matriculaDTO){
         matriculaService.fazerMatricula(matriculaDTO);
