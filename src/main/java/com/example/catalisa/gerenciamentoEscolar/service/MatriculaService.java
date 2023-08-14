@@ -1,8 +1,8 @@
 package com.example.catalisa.gerenciamentoEscolar.service;
 
-import com.example.catalisa.gerenciamentoEscolar.model.CursoModel;
 import com.example.catalisa.gerenciamentoEscolar.model.MatriculaModel;
 import com.example.catalisa.gerenciamentoEscolar.model.dtos.MatriculaDTO;
+import com.example.catalisa.gerenciamentoEscolar.model.dtos.MatriculaDTOExibicao;
 import com.example.catalisa.gerenciamentoEscolar.repository.MatriculaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ public class MatriculaService {
     //MÉTODOS
 
    // atualizar matricula do aluno
-    public MatriculaModel editarMatricula(Long id, Long cursosId){ //tentar lugar pra long
+    public MatriculaModel editarMatricula(Long id, Long cursosId){
 
         MatriculaModel matriculaModel = matriculaRepository.findById(id).orElse(null);
 
@@ -31,29 +31,18 @@ public class MatriculaService {
     }
 
     //listar todos os cadastros
-//    public List<MatriculaModel> exibirMatriculas(){
-//
-//        List<MatriculaModel> matriculas = matriculaRepository.findAll();
-//
-//        return matriculas;
-//    }
-    public List<MatriculaDTO> exibirMatriculas(){
+    public List<MatriculaDTOExibicao> exibirMatriculas(){
 
         List<MatriculaModel> matriculas = matriculaRepository.findAll();
-        List<MatriculaDTO> matriculasDTO = new ArrayList<>();
+        List<MatriculaDTOExibicao> matriculasDTOExibicao = new ArrayList<>();
 
         for(MatriculaModel matricula : matriculas){
-            matriculasDTO.add(new MatriculaDTO(matricula));
+            matriculasDTOExibicao.add(new MatriculaDTOExibicao(matricula));
         }
-        return matriculasDTO;
+        return matriculasDTOExibicao;
     }
 
     // fazer um novo cadastro
-//    public MatriculaModel fazerMatricula(MatriculaModel matriculaModel){
-//
-//        return matriculaRepository.save(matriculaModel);
-//    }
-
     public MatriculaDTO fazerMatricula(MatriculaDTO matriculaDTO){
         MatriculaModel novaMatricula = matriculaRepository.save(matriculaDTO.toMatriculaModel());
         return new MatriculaDTO(novaMatricula);

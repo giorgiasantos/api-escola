@@ -2,9 +2,9 @@ package com.example.catalisa.gerenciamentoEscolar.service;
 
 import com.example.catalisa.gerenciamentoEscolar.model.ProfessorModel;
 import com.example.catalisa.gerenciamentoEscolar.model.dtos.ProfessorDTO;
+import com.example.catalisa.gerenciamentoEscolar.model.dtos.ProfessorDTOExibicao;
 import com.example.catalisa.gerenciamentoEscolar.repository.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.swing.*;
@@ -20,27 +20,17 @@ public class ProfessorService {
     //MÉTODOS
 
     //listar todos os cadastros
-//    public List<ProfessorModel> exibirProfessores(){
-//        List<ProfessorModel> professores = professorRepository.findAll();
-//
-//        return professores;
-//    }
-
-    public List<ProfessorDTO> exibirProfessores(){
+    public List<ProfessorDTOExibicao> exibirProfessores(){
         List<ProfessorModel> professores = professorRepository.findAll();
-        List<ProfessorDTO> professoresDTO = new ArrayList<>();
+        List<ProfessorDTOExibicao> professoresDTOExibicao = new ArrayList<>();
 
         for(ProfessorModel professor: professores){
-            professoresDTO.add(new ProfessorDTO(professor));
+            professoresDTOExibicao.add(new ProfessorDTOExibicao(professor));
         }
-        return professoresDTO;
+        return professoresDTOExibicao;
     }
 
-    // fazer um novo cadastro
-//    public ProfessorModel cadastrarProfessor(ProfessorModel professorModel){
-//        return professorRepository.save(professorModel);
-//
-//    }
+    // fazer novo cadastro
     public ProfessorDTO cadastrarProfessor(ProfessorDTO professorDTO){
         ProfessorModel novoProfessor = professorRepository.save(professorDTO.toProfessorModel());
         return new ProfessorDTO(novoProfessor);

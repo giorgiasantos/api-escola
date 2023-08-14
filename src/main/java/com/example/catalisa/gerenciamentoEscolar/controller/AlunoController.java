@@ -1,10 +1,9 @@
 package com.example.catalisa.gerenciamentoEscolar.controller;
 
-import com.example.catalisa.gerenciamentoEscolar.model.AlunoModel;
 import com.example.catalisa.gerenciamentoEscolar.model.dtos.AlunoDTO;
+import com.example.catalisa.gerenciamentoEscolar.model.dtos.AlunoDTOExibicao;
 import com.example.catalisa.gerenciamentoEscolar.service.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +19,7 @@ public class AlunoController {
 
     //REQUISIÇÃO GET
     @GetMapping
-    public ResponseEntity<List<AlunoDTO>> listarAlunos(){
+    public ResponseEntity<List<AlunoDTOExibicao>> listarAlunos(){
         return ResponseEntity.ok(alunoService.exibirAlunos());
     }
 

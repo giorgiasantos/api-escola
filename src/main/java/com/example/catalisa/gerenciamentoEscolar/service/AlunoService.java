@@ -2,6 +2,7 @@ package com.example.catalisa.gerenciamentoEscolar.service;
 
 import com.example.catalisa.gerenciamentoEscolar.model.AlunoModel;
 import com.example.catalisa.gerenciamentoEscolar.model.dtos.AlunoDTO;
+import com.example.catalisa.gerenciamentoEscolar.model.dtos.AlunoDTOExibicao;
 import com.example.catalisa.gerenciamentoEscolar.repository.AlunoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,15 +19,15 @@ public class AlunoService {
     //MÉTODOS
 
     //listar todos os cadastros
-    public List<AlunoDTO> exibirAlunos(){
+    public List<AlunoDTOExibicao> exibirAlunos(){
 
         List<AlunoModel> alunos = alunoRepository.findAll();
-        List<AlunoDTO> alunosDTO = new ArrayList<>();
+        List<AlunoDTOExibicao> alunosDTOExibicao = new ArrayList<>();
 
         for(AlunoModel aluno: alunos){
-            alunosDTO.add(new AlunoDTO(aluno));
+            alunosDTOExibicao.add(new AlunoDTOExibicao(aluno));
         }
-        return alunosDTO;
+        return alunosDTOExibicao;
     }
 
     // fazer um novo cadastro
