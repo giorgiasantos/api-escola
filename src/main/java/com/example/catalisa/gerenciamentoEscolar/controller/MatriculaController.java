@@ -20,9 +20,10 @@ public class MatriculaController {
 
     //ENDPOINTS
 
-    //REQUISIÇÃO PATH
-    @PatchMapping(path = "/{id}")
+    //REQUISIÇÃO PATCH
+    @PutMapping(path = "/{id}")
     public ResponseEntity<MatriculaModel> modificarCurso(@PathVariable Long id, @RequestBody Long cursosId){
+
         MatriculaModel matriculaModel = matriculaService.editarMatricula(id,cursosId);
 
         if(matriculaModel != null){

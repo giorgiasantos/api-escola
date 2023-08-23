@@ -17,4 +17,6 @@ public class AlunoDTOExibicao implements Serializable {
         this.nomeAluno = alunoModel.getNomeAluno();
     }
 
+
+
 }
