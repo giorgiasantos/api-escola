@@ -64,7 +64,6 @@ class ProfessorControllerTest {
                 .andExpect(jsonPath("$.cursos.cargaHoraria").value(4000))
                 .andExpect(jsonPath("$.cursosId").value(1));
     }
-
     @Test
     void testeDeletarProfessor() throws Exception{
         mockMvc.perform(delete("/api/professores/{id}", 1))

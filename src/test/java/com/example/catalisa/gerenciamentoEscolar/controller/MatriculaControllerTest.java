@@ -21,6 +21,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -35,24 +36,33 @@ class MatriculaControllerTest {
     @MockBean
     private MatriculaService matriculaService;
 
-@Test
-void testeModificarCurso() throws Exception {
+    @Test
+    void testeModificarCursoAchouMatricula() throws Exception {
 
-    MatriculaModel matriculaModificada = new MatriculaModel();
+        MatriculaModel matriculaModificada = new MatriculaModel();
 
-    when(matriculaService.editarMatricula(anyLong(),anyLong())).thenReturn(matriculaModificada);
+        when(matriculaService.editarMatricula(anyLong(),anyLong())).thenReturn(matriculaModificada);
 
-    mockMvc.perform(put("/api/matriculas/{id}", anyLong())
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(String.valueOf(anyLong())))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.id").value(matriculaModificada.getId()))
-            .andExpect(jsonPath("$.cursosId").value(matriculaModificada.getCursosId()));
+        mockMvc.perform(put("/api/matriculas/{id}", anyLong())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(String.valueOf(anyLong())))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(matriculaModificada.getId()))
+                .andExpect(jsonPath("$.cursosId").value(matriculaModificada.getCursosId()));
 
-    verify(matriculaService, times(1)).editarMatricula(anyLong(), anyLong());
+        verify(matriculaService, times(1)).editarMatricula(anyLong(), anyLong());
 
-}
+    }
+    @Test
+    void testeModificarCursoNãoAchouMatricula() throws Exception {
 
+        when(matriculaService.editarMatricula(anyLong(),anyLong())).thenReturn(null);
+        mockMvc.perform(put("/api/matriculas/{id}",anyLong())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(String.valueOf(anyLong())))
+                .andExpect(status().isNotFound());
+
+    }
     @Test
     void testeListarMatriculas() throws Exception{
         MatriculaModel matricula1 = new MatriculaModel(1L, LocalDate.parse("2020-10-10"),new AlunoModel(),1L, new CursoModel(),1L);
@@ -96,7 +106,7 @@ void testeModificarCurso() throws Exception {
 
     @Test
     void testeDeletarMatricula() throws Exception{
-        mockMvc.perform(delete("/api/matriculas/{id}",1))
+        mockMvc.perform(delete("/api/matriculas/{id}",anyLong()))
                 .andExpect(status().isOk());
     }
 }

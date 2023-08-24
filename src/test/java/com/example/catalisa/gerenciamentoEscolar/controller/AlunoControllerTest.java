@@ -14,6 +14,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.ArrayList;
 import java.util.List;
 import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -29,8 +31,12 @@ class AlunoControllerTest {
 
     @Test
     void testeListarAlunos() throws Exception{
-        AlunoModel aluno1 = new AlunoModel(1L, "Maria Eduarda",  19, "maria@gmail.com");
-        AlunoModel aluno2 = new AlunoModel(2L, "Gabriel Silva",  20, "gabriel@gmail.com");
+        AlunoModel aluno1 = new AlunoModel();
+        aluno1.setId(1L);
+        aluno1.setNomeAluno("Maria Eduarda");
+        AlunoModel aluno2 = new AlunoModel();
+        aluno2.setId(2L);
+        aluno2.setNomeAluno("Gabriel Silva");
         List<AlunoDTOExibicao> alunos = new ArrayList<>();
         alunos.add(new AlunoDTOExibicao(aluno1));
         alunos.add(new AlunoDTOExibicao(aluno2));
@@ -46,6 +52,7 @@ class AlunoControllerTest {
                 .andExpect(jsonPath("$[1].nomeAluno").value("Gabriel Silva"));
     }
 
+
     @Test
     void testeCadastrarNovoAluno() throws Exception {
         mockMvc.perform(post("/api/alunos")
@@ -60,7 +67,7 @@ class AlunoControllerTest {
 
     @Test
     void testeDeletarAluno() throws Exception {
-        mockMvc.perform(delete("/api/alunos/{id}",1))
+        mockMvc.perform(delete("/api/alunos/{id}",anyLong()))
                 .andExpect(status().isOk());
     }
 }

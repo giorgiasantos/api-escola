@@ -20,6 +20,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -68,7 +69,7 @@ class CursoControllerTest {
 
     @Test
     void testeDeletarCurso() throws Exception{
-        mockMvc.perform(delete("/api/cursos/{id}", 1))
+        mockMvc.perform(delete("/api/cursos/{id}", anyLong()))
                 .andExpect(status().isOk());
     }
 }

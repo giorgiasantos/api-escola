@@ -20,7 +20,7 @@ public class MatriculaController {
 
     //ENDPOINTS
 
-    //REQUISIÇÃO PATCH
+    //REQUISIÇÃO PUT
     @PutMapping(path = "/{id}")
     public ResponseEntity<MatriculaModel> modificarCurso(@PathVariable Long id, @RequestBody Long cursosId){
 
