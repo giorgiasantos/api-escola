@@ -3,9 +3,7 @@ package com.example.catalisa.gerenciamentoEscolar.controller;
 import com.example.catalisa.gerenciamentoEscolar.model.AlunoModel;
 import com.example.catalisa.gerenciamentoEscolar.model.CursoModel;
 import com.example.catalisa.gerenciamentoEscolar.model.MatriculaModel;
-import com.example.catalisa.gerenciamentoEscolar.model.ProfessorModel;
 import com.example.catalisa.gerenciamentoEscolar.model.dtos.MatriculaDTOExibicao;
-import com.example.catalisa.gerenciamentoEscolar.model.dtos.ProfessorDTOExibicao;
 import com.example.catalisa.gerenciamentoEscolar.service.MatriculaService;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -23,7 +21,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -37,11 +35,23 @@ class MatriculaControllerTest {
     @MockBean
     private MatriculaService matriculaService;
 
-    @Test
-    @Disabled
-    void testeModificarCurso() throws Exception {
-    }
+@Test
+void testeModificarCurso() throws Exception {
 
+    MatriculaModel matriculaModificada = new MatriculaModel();
+
+    when(matriculaService.editarMatricula(anyLong(),anyLong())).thenReturn(matriculaModificada);
+
+    mockMvc.perform(put("/api/matriculas/{id}", anyLong())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(String.valueOf(anyLong())))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.id").value(matriculaModificada.getId()))
+            .andExpect(jsonPath("$.cursosId").value(matriculaModificada.getCursosId()));
+
+    verify(matriculaService, times(1)).editarMatricula(anyLong(), anyLong());
+
+}
 
     @Test
     void testeListarMatriculas() throws Exception{
